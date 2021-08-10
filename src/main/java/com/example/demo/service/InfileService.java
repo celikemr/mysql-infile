@@ -25,6 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InfileService {
   private final DataSource dataSource;
+  // private final String lineSeperator = System.lineSeparator();
+  private final String lineSeperator = "\\r\\n";
 
   public void insertWithInfile() {
     VelocityEngine velocityEngine = new VelocityEngine();
@@ -63,7 +65,7 @@ public class InfileService {
                     + "ENCLOSED BY '\"' "
                     + "LINES TERMINATED BY '%s' "
                     + "(id, column1, column2);",
-                fileAbsolutePath.replace("\\", "/"), System.lineSeparator());
+                fileAbsolutePath.replace("\\", "/"), lineSeperator);
         try (Connection connection = DataSourceUtils.getConnection(dataSource)) {
           connection.prepareStatement(query).execute();
         }
