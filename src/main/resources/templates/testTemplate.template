@@ -1,0 +1,3 @@
+#foreach($infileEntity in $infileEntities)
+\N, "${infileEntity.column1}", "${infileEntity.column2}"
+#end

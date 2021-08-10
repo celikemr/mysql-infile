@@ -1,0 +1,28 @@
+version: "1"
+services:
+  demo-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - demo-network
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql_infile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_infile:3306/infileTest?allowLoadLocalInfile=true
+
+  mysql_infile:
+    image: mysql:latest
+    networks:
+      - demo-network
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: infileTest
+      MYSQL_ROOT_HOST: '%'
+networks:
+  demo-network:
